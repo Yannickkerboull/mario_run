@@ -24,7 +24,7 @@ $(document).ready(function(){
 	//Tableau pour souvenir si on appuie sur les touches
 	var moov = ["0","0"];
 	
-	audio1.play();//Je lance ma musique d'ambiance en boucle
+	////////////////////////////////////////////////////////// audio1.play();//Je lance ma musique d'ambiance en boucle
 	
 	//Sav des touches -> et <- si up en prendant en compte la derniére
 	$(document).keyup(function(e){
@@ -76,14 +76,18 @@ $(document).ready(function(){
 				if ( diff >= 1000 ) 
 				{
 						if (moov[0] == 39)//On look si on a le car ->
-						{	
-							$(".perso").animate({ "left": "+=18px", "top": "-40px" }, 500);//Je fais up mon personnage
-							$(".perso").animate({ "left": "+=18px", "top": "+=40px" }, 500);//Je le fais descendre	
-							index = moov.indexOf(39);
-							  if ( index >= 0 ) {
-								moov[index] = 0;
-								moov.splice(index,1);
-							  }							
+						{
+							var longDroite= (offset2 - 36);
+							if (longDroite <= 500)
+							{	
+								$(".perso").animate({ "left": "+=18px", "top": "-40px" }, 500);//Je fais up mon personnage
+								$(".perso").animate({ "left": "+=18px", "top": "+=40px" }, 500);//Je le fais descendre
+							}
+							else
+							{
+								$(".perso").animate({ "top": "-=40px" }, 500);//Je fais up mon personnage
+								$(".perso").animate({ "top": "+=40px" }, 500);//Je le fais descendre
+							}
 						}
 						else if ( moov[0] == 37)//On look si on a le car <-
 						{
@@ -133,7 +137,7 @@ $(document).ready(function(){
 						//Calcul du temps passé
 						var tempsAll = e.timeStamp - timeDepart;
 						tempsAll = parseInt(tempsAll/1000);
-						document.getElementById('timeu').innerHTML= "Temps de jeu :" + tempsAll + " sec";
+						document.getElementById('timeu').innerHTML= "Temps de jeu :" + tempsAll + " sec<br> Il est faisable en 17 sec";
 						$(".win").hide(10000);//Fermeture du cadre de jeu
 						$(".trou").hide(1);//Fermeture des éléments du jeu
 						$(".win1").show(10000);//afficher le cadre gagnant
