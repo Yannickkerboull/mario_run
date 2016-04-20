@@ -10,7 +10,7 @@ $(document).ready(function(){
 	var audio3 = new Audio("./songs/game-over.wav");
 	
 	//Déclaration de mes trous dans le terrain :)
-	var tabTrou = ["20","240","288"];
+	var tabTrou = ["120","332","382"];
 	
 	compteur = 0;//Compteur du nb de décalage de px de l'écran pour arrivé au bout!	
 	timeDepart = 0;	//Compteur du temps
@@ -40,8 +40,10 @@ $(document).ready(function(){
 	
 	$(document).keydown(function(e){//Fonction qui récupere les touches entrées au clavier
 		//Je récupere la position de mon perso sur le terrain
-		var p = $( ".perso" );
-		var offset = p.offset();
+		var offset = $( ".perso" ).offset();
+		var offset1 = $( ".win" ).offset();
+		var offset2 = offset.left - offset1.left;
+		
 		if (timeDepart == 0)
 		{
 			timeDepart = e.timeStamp;
@@ -57,15 +59,11 @@ $(document).ready(function(){
 			moov[0] = 0;
 		}
 		
-		//Donnes de récup pour les tests
-		var p1 = $( ".maps" );
-		var offset1 = p1.offset();
-		
 		//Je traite les touches entrées
 		switch (e.which){
 			case 37://touche correspondant à la fléche de gauche
 				$(".perso").css( "transform" , "scaleX(-1)" );//J'inverse le sens de mon image en css
-				if (offset.left > 330)//Je vérifie que je ne sois pas au bout de l'écran
+				if (offset2 >= 2)//Je vérifie que je ne sois pas au bout de l'écran
 				{//Si c'est pas le cas, je peux reculer
 					$(".perso").animate({ "left": "-=2px" }, 10); 
 				}
@@ -89,7 +87,7 @@ $(document).ready(function(){
 						}
 						else if ( moov[0] == 37)//On look si on a le car <-
 						{
-							var longGauche = (offset.left - 338.5);
+							var longGauche = (offset2 - 36);
 							if (longGauche >= 0)
 							{	
 								$(".perso").animate({ "left": "-=18px", "top": "-40px" }, 500);//Je fais up mon personnage
@@ -112,7 +110,7 @@ $(document).ready(function(){
 				break;
 			case 39://touche correspondant à la fléche de droite
 				$(".perso").css( "transform" , "scaleX(+1)" );//je met mon personnage dans sa position initiale.
-				if (offset.left < 730)//Test de si je suis arrivé à la limite de mon écran avant le défillement du paysage
+				if (offset2 < 500)//Test de si je suis arrivé à la limite de mon écran avant le défillement du paysage
 				{				
 						$(".perso").animate({ "left": "+=2px" }, 10);
 				}
@@ -146,12 +144,12 @@ $(document).ready(function(){
 		
 		//Test de si on tombe dans un trou ou non !
 		var i = 0;
-		var longTrou = 32;
+		var longTrou = 30;
 		for (i = 0;i < tabTrou.length ; i++)
 		{
-			calc = ((tabTrou[i] /1) + 276) - compteur + 100;//Variable pour savoir si on est dans un trou ou non
+			calc = (tabTrou[i] /1) - compteur;//Variable pour savoir si on est dans un trou ou non
 			calcmax = calc + longTrou;
-			if ((calc <= offset.left) && (calcmax >= offset.left))
+			if ((calc <= offset2) && (calcmax >= offset2))
 			{
 				audio1.pause();//Je stop la musique d'ambiance
 				audio3.play();//Je lance musique pour perdu
