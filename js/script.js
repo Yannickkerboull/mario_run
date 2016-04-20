@@ -1,3 +1,4 @@
+var tabTrou1 = {"200" : 0, "400" : 0};
 $(document).ready(function(){
 	//On masque le panneau gagnant et perdant
 	$(".win1").hide(1);
@@ -7,17 +8,15 @@ $(document).ready(function(){
 	var audio = new Audio("./songs/saut.wav");
 	var audio1 = new Audio("./songs/Mario.mp3");
 	var audio2 = new Audio("./songs/hurry-up.wav");
+	var audio3 = new Audio("./songs/game-over.wav");
 	
 	//Déclaration de mes trous dans le terrain :)
 	//var tabTrou = ["55","50"];
-	var tabTrou = ["48","50"];
-	//Compteur du nb de décalage de px de l'écran pour arrivé au bout!
-	compteur = 0;
-	//Compteur du temps
-	timeDepart = 0;	
+	var tabTrou = ["20","240","288"];
 	
-	audio1.play();//Je lance ma musique d'ambiance de boucle
-	
+	compteur = 0;//Compteur du nb de décalage de px de l'écran pour arrivé au bout!	
+	timeDepart = 0;	//Compteur du temps
+		
 	//var pour la différences de temps entre 2 touches. Cela évite que si on laisse appuyer longtemps sur la touche haut, que je personnage saute X fois
 	var last = 0;
 	var diff = 1000;
@@ -26,6 +25,8 @@ $(document).ready(function(){
 	
 	//Tableau pour souvenir si on appuie sur les touches
 	var moov = ["0","0"];
+	
+	//audio1.play();//Je lance ma musique d'ambiance en boucle
 	
 	//Sav des touches -> et <- si up en prendant en compte la derniére
 	$(document).keyup(function(e){
@@ -122,16 +123,15 @@ $(document).ready(function(){
 				}
 				else
 				{
-					//imgWidth = $('#hiddenImg').width();
 					compteur = compteur + 2;//Je suis fait donc défiler mon paysage, donc je le décale d'autant de px que le personnage bouge 
 					//if (compteur < 4190)//Test de si je suis arrivé à la fin
-					if (compteur < 200)//Test de si je suis arrivé à la fin
+					if (compteur < 200)//Test de si je suis arrivé à la fin pour la démo !!!
 					{
 						$(".maps").animate({ "background-position": "-=2px" }, 1);
+						$(".trou").animate({ "margin-left": "-=2px" }, 1);
 					}
 					else
 					{//C'est la fin
-					console.log("mon res" + offset.left + " compteur: " + compteur);
 						audio1.pause();//Je stop la musique d'ambiance
 						audio2.play();//Je lance la musique de fin
 						//Je fais des sauts de victoire !
@@ -140,9 +140,10 @@ $(document).ready(function(){
 						//Calcul du temps passé
 						var tempsAll = e.timeStamp - timeDepart;
 						tempsAll = parseInt(tempsAll/1000);
-						document.getElementById('timeu').innerHTML= "Temps de jeux :" + tempsAll + "sec";
-						$(".win").hide(10000);
-						$(".win1").show(10000);
+						document.getElementById('timeu').innerHTML= "Temps de jeu :" + tempsAll + " sec";
+						$(".win").hide(10000);//Fermeture du cadre de jeu
+						$(".trou").hide(1);//Fermeture des éléments du jeu
+						$(".win1").show(10000);//afficher le cadre gagnant
 					}
 				}
 				break;
@@ -150,18 +151,24 @@ $(document).ready(function(){
 		
 		//Test de si on tombe dans un trou ou non !
 		var i = 0;
-		var longTrou = 6;
+		var longTrou = 32;
 		for (i = 0;i < tabTrou.length ; i++)
 		{
-			//calc = (tabTrou[i] + longTrou) - offset.left;//Variable pour savoir si on est dans un trou ou non
-			calc = (tabTrou[i] + longTrou) - offset.left - compteur;//Variable pour savoir si on est dans un trou ou non
-			if ((calc >= longTrou) && calc <= (2 * longTrou))
+			calc = ((tabTrou[i] /1) + 276) - compteur + 100;//Variable pour savoir si on est dans un trou ou non
+			calcmax = calc + longTrou;
+			if ((calc <= offset.left) && (calcmax >= offset.left))
 			{
+				audio1.pause();//Je stop la musique d'ambiance
+				audio3.play();//Je lance musique pour perdu
 				$(".perso").animate({ "top": "+=300px" }, 1000);//Je le fais descendre
-				$(".win").hide(10000);
-				$(".loose").show(10000);
+				//Calcul du temps passé
+				var tempsAll = e.timeStamp - timeDepart;
+				tempsAll = parseInt(tempsAll/1000);
+				document.getElementById('timeu1').innerHTML= "Temps de jeu à tester:" + tempsAll + " sec";
+				$(".win").hide(5000);//Fermeture du cadre de jeu
+				$(".trou").hide(1);//Fermeture des éléments du jeu
+				$(".loose").show(5000);//afficher le cadre perdant
 			}
 		}
-		//console.log(offset.left);
    });
 });

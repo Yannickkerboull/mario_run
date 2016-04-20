@@ -27,6 +27,7 @@ article{
 	z-index:100;
 	position:relative;
 	width:55px;
+	//background-color:red;
 }
 
 .marche {
@@ -37,7 +38,7 @@ article{
 	padding-top:50px;
 	background-color:green;
 	height:250px;
-	z-index:5;
+	z-index:50;
 	text-align:center;
 	margin-top:20px;
 }
@@ -55,4 +56,28 @@ article{
 	color:yellow;
 	font-size:20px;
 	text-align:center;
+}
+
+.trou {
+	width: 36px;
+	height: 30px;
+	margin-top:-40px;
+	//background-color:blue;
+	z-index:4;
+	margin-left:-30px;
+}
+
+#trou1 {
+	background-color:black;
+	margin-left:150px;
+}
+#trou2 {
+	background-color:black;
+	margin-top:-30px;
+	margin-left:372px;
+}
+#trou3 {
+	background-color:black;
+	margin-top:-30px;
+	margin-left:417px;
 }
