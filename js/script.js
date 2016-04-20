@@ -24,7 +24,7 @@ $(document).ready(function(){
 	//Tableau pour souvenir si on appuie sur les touches
 	var moov = ["0","0"];
 	
-	////////////////////////////////////////////////////////// audio1.play();//Je lance ma musique d'ambiance en boucle
+	audio1.play();//Je lance ma musique d'ambiance en boucle
 	
 	//Sav des touches -> et <- si up en prendant en compte la derniére
 	$(document).keyup(function(e){
