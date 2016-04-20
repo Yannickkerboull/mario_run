@@ -1,4 +1,3 @@
-var tabTrou1 = {"200" : 0, "400" : 0};
 $(document).ready(function(){
 	//On masque le panneau gagnant et perdant
 	$(".win1").hide(1);
@@ -11,7 +10,6 @@ $(document).ready(function(){
 	var audio3 = new Audio("./songs/game-over.wav");
 	
 	//Déclaration de mes trous dans le terrain :)
-	//var tabTrou = ["55","50"];
 	var tabTrou = ["20","240","288"];
 	
 	compteur = 0;//Compteur du nb de décalage de px de l'écran pour arrivé au bout!	
@@ -26,7 +24,7 @@ $(document).ready(function(){
 	//Tableau pour souvenir si on appuie sur les touches
 	var moov = ["0","0"];
 	
-	//audio1.play();//Je lance ma musique d'ambiance en boucle
+	audio1.play();//Je lance ma musique d'ambiance en boucle
 	
 	//Sav des touches -> et <- si up en prendant en compte la derniére
 	$(document).keyup(function(e){
@@ -59,7 +57,6 @@ $(document).ready(function(){
 			moov[0] = 0;
 		}
 		
-		
 		//Donnes de récup pour les tests
 		var p1 = $( ".maps" );
 		var offset1 = p1.offset();
@@ -74,8 +71,6 @@ $(document).ready(function(){
 				}
 				break;
 			case 38://touche correspondant à la fléche du haut
-				//alert(compteur); //Tset
-				//alert(offset.left);   //Tset
 				audio.play();//Je lance la musique de saut
 				
 				//Test d'appuie sur la touche X fois !!
