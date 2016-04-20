@@ -1,0 +1,58 @@
+body{
+	width:800px;
+	margin-left:auto;
+	margin-right:auto;
+	background-color:blue;
+}
+
+article{
+	background-color:green;
+}
+
+.win {
+	background-color:black;
+	height:250px;
+	z-index:1;
+}
+
+.maps {
+	height:238px;
+	background: url("../maps/plan3_2.png") no-repeat ;
+	background-position: -130px 0;
+}
+
+.perso {
+	height:60px;
+	margin-top:-86px;
+	z-index:100;
+	position:relative;
+	width:55px;
+}
+
+.marche {
+	background-position: -2px 0;
+}
+
+.win1 {
+	padding-top:50px;
+	background-color:green;
+	height:250px;
+	z-index:5;
+	text-align:center;
+	margin-top:20px;
+}
+
+.loose {
+	padding-top:50px;
+	background-color:green;
+	height:250px;
+	z-index:5;
+	text-align:center;
+	margin-top:20px;
+}
+
+.times{
+	color:yellow;
+	font-size:20px;
+	text-align:center;
+}
